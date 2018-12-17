@@ -7,6 +7,11 @@ const char *vert =
     "layout(location = 0) in vec3 aPos;\n"
     "void main() { gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0); }\0";
 
+const char *frag =
+    "#version 330 core\n"
+    "out vec4 FragColor;\n"
+    "void main() { FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f); }\0";
+
 int main() {
   glfwInit();
   glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -36,9 +41,30 @@ int main() {
     return -1;
   }
 
+  int success;
+  char infoLog[512];
+
   unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
   glShaderSource(vertexShader, 1, &vert, nullptr);
   glCompileShader(vertexShader);
+
+  glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
+  if (!success) {
+    glGetShaderInfoLog(vertexShader, 512, nullptr, infoLog);
+    std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n"
+              << infoLog << std::endl;
+  }
+
+  unsigned int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+  glShaderSource(fragmentShader, 1, &frag, nullptr);
+  glCompileShader(fragmentShader);
+
+  glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
+  if (!success) {
+    glGetShaderInfoLog(fragmentShader, 512, nullptr, infoLog);
+    std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n"
+              << infoLog << std::endl;
+  }
 
   float vertices[] = {
       -0.5f, -0.5f, 0.0f, //
