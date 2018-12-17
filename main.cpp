@@ -33,6 +33,13 @@ int main() {
   }
 
   while (!glfwWindowShouldClose(window)) {
+
+    if (GLFW_PRESS == glfwGetKey(window, GLFW_KEY_ESCAPE))
+      glfwSetWindowShouldClose(window, true);
+
+    glClearColor(0.2, 0.3, 0.4, 0.5);
+    glClear(GL_COLOR_BUFFER_BIT);
+
     glfwSwapBuffers(window);
     glfwPollEvents();
   }
