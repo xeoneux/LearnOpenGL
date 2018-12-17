@@ -2,6 +2,11 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+const char *vert =
+    "#version 330 core\n"
+    "layout(location = 0) in vec3 aPos;\n"
+    "void main() { gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0); }\0";
+
 int main() {
   glfwInit();
   glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -31,6 +36,10 @@ int main() {
     return -1;
   }
 
+  unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
+  glShaderSource(vertexShader, 1, &vert, nullptr);
+  glCompileShader(vertexShader);
+
   float vertices[] = {
       -0.5f, -0.5f, 0.0f, //
       0.5f,  -0.5f, 0.0f, //
@@ -47,7 +56,7 @@ int main() {
     if (GLFW_PRESS == glfwGetKey(window, GLFW_KEY_ESCAPE))
       glfwSetWindowShouldClose(window, true);
 
-    glClearColor(0.2, 0.3, 0.4, 0.5);
+    glClearColor(0.2f, 0.3f, 0.4f, 0.5f);
     glClear(GL_COLOR_BUFFER_BIT);
 
     glfwSwapBuffers(window);

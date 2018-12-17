@@ -36,7 +36,7 @@ int main() {
     if (GLFW_PRESS == glfwGetKey(window, GLFW_KEY_ESCAPE))
       glfwSetWindowShouldClose(window, true);
 
-    glClearColor(0.2, 0.3, 0.4, 0.5);
+    glClearColor(0.2f, 0.3f, 0.4f, 0.5f);
     glClear(GL_COLOR_BUFFER_BIT);
 
     glfwSwapBuffers(window);

@@ -7,7 +7,7 @@ set(CMAKE_CXX_STANDARD 14)
 find_package(glad CONFIG REQUIRED)
 find_package(glfw3 CONFIG REQUIRED)
 
-add_executable(LearnOpenGL 1_hello_window.cpp 2_hello_triangle.cpp)
+add_executable(LearnOpenGL 2_hello_triangle.cpp)
 
 target_link_libraries(LearnOpenGL PRIVATE glfw)
 target_link_libraries(LearnOpenGL PRIVATE glad::glad)
