@@ -13,8 +13,7 @@ int main() {
   glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
 
-  GLFWwindow *window =
-      glfwCreateWindow(800, 600, "LearnOpenGL", nullptr, nullptr);
+  auto *window = glfwCreateWindow(800, 600, "LearnOpenGL", nullptr, nullptr);
 
   if (window == nullptr) {
     std::cout << "Failed to create GLFW window" << std::endl;
@@ -23,11 +22,21 @@ int main() {
   }
 
   glfwMakeContextCurrent(window);
+  glfwSetFramebufferSizeCallback(window,
+                                 [](auto *window, auto width, auto height) {
+                                   glViewport(0, 0, width, height);
+                                 });
 
   if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
     std::cout << "Failed to initialize GLAD" << std::endl;
     return -1;
   }
 
+  while (!glfwWindowShouldClose(window)) {
+    glfwSwapBuffers(window);
+    glfwPollEvents();
+  }
+
+  glfwTerminate();
   return 0;
 }
